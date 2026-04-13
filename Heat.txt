@@ -1,0 +1,25 @@
+What is the degree of hotness or coldness of an object called? | Temperature
+Which device is used to measure body temperature? | Clinical Thermometer
+What is the normal temperature of the human body in Celsius? | 37 Degrees C
+What is the range of a laboratory thermometer? | -10C to 110C
+Name the process by which heat is transferred in solids. | Conduction
+Name the process by which heat is transferred in liquids and gases. | Convection
+How does heat from the Sun reach the Earth? | Radiation
+Which materials allow heat to pass through them easily? | Conductors
+Materials that do not allow heat to pass through are called? | Insulators (or poor conductors)
+What is the range of a clinical thermometer? | 35C to 42C
+Why is the box of a solar cooker painted black from inside? | To absorb more heat
+In which direction does heat always flow? | From a hotter object to a colder object
+What is the liquid used in older thermometers? | Mercury
+The breeze blowing from the sea towards the land during the day is? | Sea Breeze
+The breeze blowing from the land towards the sea at night is? | Land Breeze
+Which type of clothes are preferred during winters? | Woolen clothes
+Why do we wear light-colored clothes in summer? | They reflect most of the heat
+What prevents the mercury level from falling on its own in a clinical thermometer? | Kink (or constriction)
+Does radiation require a medium for heat transfer? | No
+Which is a better conductor of heat: Iron or Wood? | Iron
+Stainless steel pans are usually provided with copper bottoms because? | Copper is a better conductor than steel
+Air is a _____ conductor of heat. | Poor (or Insulator)
+What happens to a substance when it is heated? | It expands
+Which process of heat transfer is responsible for the formation of wind? | Convection
+Why are woolen clothes warm? | Air is trapped between wool fibers, which is a poor conductor of heat
