@@ -113,7 +113,7 @@ if st.button("Generate Paper"):
                     st.success(f"✅ Paper Generated for {student_name}!")
                     st.download_button(
                         label="📥 Download PDF",
-                        data=pdf_data,
+                        data=pdf_data,file_name=f"{sub_choice}_{chp_choice}.pdf
                         file_name=f"{sub_choice}_{chp_choice}.pdf",
                         mime="application/pdf"
                         st.download_button(
