@@ -114,10 +114,10 @@ if st.button("Generate Paper"):
                     
                     # FIXED: Wrapped in bytes() and fixed f-string syntax
                     st.download_button(
-                        label="📥 Download PDF",
-                        data=bytes(pdf_data),
-                        file_name=f"{sub_choice}_{chp_choice.replace(' ', '_')}.pdf",
-                        mime="application/pdf"
+    label="📥 Download PDF",
+    data=bytes(pdf_data),
+    file_name=f"{sub_choice}_{chp_choice.replace(' ', '_')}.pdf",
+    mime="application/octet-stream"  # Changed from application/pdf
                     )
                 except Exception as e:
                     st.error(f"Error creating PDF: {e}")
