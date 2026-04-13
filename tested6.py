@@ -1,4 +1,4 @@
- import streamlit as st
+import streamlit as st
 from fpdf import FPDF
 import os
 import random
@@ -74,7 +74,6 @@ def generate_pdf(school, student, std, sub, chp, questions):
 st.set_page_config(page_title="Exam Generator Pro", page_icon="📝")
 st.title("📝 Online Exam Generator")
 
-# User Inputs
 school_name = st.text_input("School Name", "Global Public School")
 student_name = st.text_input("Student Name", placeholder="Type student name here...")
 
@@ -90,7 +89,6 @@ if st.button("Generate Paper"):
     if not student_name:
         st.error("Please enter a Student Name.")
     else:
-        # File Path Logic
         filename = os.path.join(std_choice, f"{chp_choice}.txt")
         
         if os.path.exists(filename):
@@ -98,20 +96,20 @@ if st.button("Generate Paper"):
             with open(filename, "r", encoding="utf-8") as f:
                 for line in f:
                     if "|" in line:
-                        q, a = line.split("|")
-                        qa_bank.append({
-                            "q": clean_text(q.strip()), 
-                            "a": clean_text(a.strip())
-                        })
+                        parts = line.split("|")
+                        if len(parts) >= 2:
+                            q, a = parts[0], parts[1]
+                            qa_bank.append({
+                                "q": clean_text(q.strip()), 
+                                "a": clean_text(a.strip())
+                            })
             
             if qa_bank:
                 random.shuffle(qa_bank)
                 selected = qa_bank[:25]
                 
-                # IMPORTANT: .output() is encoded to latin-1 for the download button
                 try:
                     pdf_data = generate_pdf(school_name, student_name, std_choice, sub_choice, chp_choice, selected)
-                    
                     st.success(f"✅ Paper Generated for {student_name}!")
                     st.download_button(
                         label="📥 Download PDF",
@@ -122,6 +120,7 @@ if st.button("Generate Paper"):
                 except Exception as e:
                     st.error(f"Error creating PDF: {e}")
             else:
-                st.error("File is empty or formatted incorrectly (use Question | Answer).")
+                st.error("File format error: Use 'Question | Answer' in your txt files.")
         else:
-            st.error(f"File not found: {filename}. Make sure folders match exactly.")
+            st.error(f"File not found: {filename}. Check your GitHub folders.")
+         
