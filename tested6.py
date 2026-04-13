@@ -116,7 +116,11 @@ if st.button("Generate Paper"):
                         data=pdf_data,
                         file_name=f"{sub_choice}_{chp_choice}.pdf",
                         mime="application/pdf"
-                    )
+                        st.download_button(
+    label="📥 Download PDF",
+    data=bytes(pdf_data),  # This converts bytearray to standard bytes
+    file_name=f"{sub_choice}_{chp_choice}.pdf",
+    mime="application/pdf"
                 except Exception as e:
                     st.error(f"Error creating PDF: {e}")
             else:
