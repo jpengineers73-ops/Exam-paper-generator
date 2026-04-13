@@ -1,35 +1,5 @@
-import streamlit as st
-from fpdf import FPDF
-import os
-import random
-
-# --- 1. DATA CONFIGURATION ---
-DATA_TREE = {
-    "Class 7": {
-        "Science": ["Heat", "Light", "Electricity"],
-        "Maths": ["Integers", "Fractions and Decimals", "Simple equations", "Line and angles"]
-    },
-    "Class 8": {
-        "Science": [
-            "Crop Production and Management", 
-            "Microorganisms Friend and Foe", 
-            "Synthetic Fibres and Plastics"
-        ],
-        "Maths": ["Rational Numbers", "Linear Equations", "Understanding Quadrilaterals"]
-    }
-}
-
-def clean_text(text):
-    replacements = {'\u2018': "'", '\u2019': "'", '\u201c': '"', '\u201d': '"', '\u2013': '-', '\u2014': '-'}
-    for u, a in replacements.items():
-        text = text.replace(u, a)
-    return text.encode('latin-1', 'ignore').decode('latin-1')
-
-def generate_pdf(school, student, std, sub, chp, questions):
-    pdf = FPDF()
-    pdf.set_auto_page_break(auto=True, margin=15)
-    pdf.add_page()
-import streamlit as st
+    
+    import streamlit as st
 from fpdf import FPDF
 import os
 import random
@@ -156,29 +126,3 @@ if st.button("Generate Paper"):
                 st.error("File is empty or formatted incorrectly (use Question | Answer).")
         else:
             st.error(f"File not found: {filename}. Make sure folders match exactly.")
- Public School")
-student_name = st.text_input("Student Name")
-std_choice = st.selectbox("Class", options=list(DATA_TREE.keys()))
-sub_choice = st.selectbox("Subject", options=list(DATA_TREE[std_choice].keys()))
-chp_choice = st.selectbox("Chapter", options=DATA_TREE[std_choice][sub_choice])
-
-if st.button("Generate Paper"):
-    if not student_name:
-        st.error("Please enter a Student Name.")
-    else:
-        filename = os.path.join(std_choice, f"{chp_choice}.txt")
-        if os.path.exists(filename):
-            qa_bank = []
-            with open(filename, "r", encoding="utf-8") as f:
-                for line in f:
-                    if "|" in line:
-                        q, a = line.split("|")
-                        qa_bank.append({"q": clean_text(q.strip()), "a": clean_text(a.strip())})
-            if qa_bank:
-                random.shuffle(qa_bank)
-                selected = qa_bank[:25]
-                pdf_output = generate_pdf(school_name, student_name, std_choice, sub_choice, chp_choice, selected)
-                st.success(f"✅ Paper Generated!")
-                st.download_button(label="📥 Download PDF", data=pdf_output, file_name=f"{sub_choice}_{chp_choice}.pdf", mime="application/pdf")
-        else:
-            st.error(f"File not found: {filename}")
