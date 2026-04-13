@@ -1,0 +1,25 @@
+What are integers? | Whole numbers including negative numbers and zero
+Give examples of integers. | -3, -2, -1, 0, 1, 2, 3
+What is the additive identity of integers? | 0
+What is the additive inverse of a number? | Same number with opposite sign
+What is the additive inverse of 5? | -5
+What is the additive inverse of -8? | 8
+What is closure property of integers under addition? | Sum of two integers is always an integer
+What is closure property under subtraction? | Difference of two integers is always an integer
+Is division closed for integers? | No
+What is commutative property of addition? | a + b = b + a
+Is subtraction commutative? | No
+What is associative property of addition? | (a + b) + c = a + (b + c)
+Is subtraction associative? | No
+What is multiplication property of integers? | Product of integers is always integer
+What is commutative property of multiplication? | a × b = b × a
+What is associative property of multiplication? | (a × b) × c = a × (b × c)
+What is distributive property? | a × (b + c) = ab + ac
+What is sign rule for multiplication? | Same signs = positive, different signs = negative
+What is sign rule for division? | Same signs = positive, different signs = negative
+What is 0 × any integer? | 0
+What happens when any number is multiplied by 1? | The number remains same
+What is (-1) × (-1)? | 1
+What is (-1) × 1? | -1
+What is 5 + (-3)? | 2
+What is (-7) + 4? | -3
