@@ -2,13 +2,11 @@ import streamlit as st
 from fpdf import FPDF
 import os
 import random
+import segno
 
 # --- 1. USER ACCOUNTS ---
-# Add your teachers or staff here: "username": "password"
 USERS = {
     "admin": "admin123",
-    "teacher1": "science789",
-    "teacher2": "maths456",
     "joy": "joy73"
 }
 
@@ -64,7 +62,7 @@ def generate_pdf(school, student, std, sub, chp, questions):
         pdf.ln(0.5)
     return pdf.output()
 
-# --- 4. APP INTERFACE & LOGIN ---
+# --- 4. APP INTERFACE & PAYMENT ---
 st.set_page_config(page_title="Exam Generator Pro", page_icon="📝")
 
 if "logged_in" not in st.session_state:
@@ -80,6 +78,32 @@ if not st.session_state.logged_in:
             st.rerun()
         else:
             st.error("Invalid Username or Password")
+            
+    st.markdown("---")
+    st.subheader("💳 Get Premium Access")
+    
+    # --- PAYMENT LOGIC ---
+    upi_id = "9825072285@ptsbi"  # <<< CHANGE THIS TO YOUR UPI ID
+    biz_name = "Palash Group Tuition"
+    pay_amount = "50"
+    
+    # 1. Create QR Code
+    upi_url = f"upi://pay?pa={upi_id}&pn={biz_name.replace(' ', '%20')}&am={pay_amount}&cu=INR"
+    qr = segno.make(upi_url)
+    qr.save("upi_qr.png", scale=10)
+    
+    col_a, col_b = st.columns(2)
+    with col_a:
+        st.image("upi_qr.png", caption="Scan QR to Pay", width=180)
+    with col_b:
+        st.write(f"**Amount:** ₹{pay_amount}")
+        # 2. Create Pay Button for Mobile Users
+        st.markdown(
+            f'<a href="{upi_url}" style="display: inline-block; padding: 12px 24px; background-color: #2e7d32; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-weight: bold;">🚀 Pay via UPI App</a>',
+            unsafe_allow_html=True
+        )
+    st.info("After payment, please share the screenshot with the admin to receive your login credentials.")
+
 else:
     # --- LOGGED IN UI ---
     st.sidebar.title(f"Welcome!")
@@ -89,7 +113,8 @@ else:
 
     st.title("📝 Online Exam Generator")
     
-    Institute_name = st.text_input("Institute Name", "Palash Group Tuition")
+    # Use the institute name you wanted
+    institute_name = st.text_input("Institute Name", "Palash Group Tuition")
     student_name = st.text_input("Student Name", placeholder="Enter student name...")
 
     col1, col2, col3 = st.columns(3)
@@ -112,16 +137,13 @@ else:
                         if "|" in line:
                             parts = line.split("|")
                             if len(parts) >= 2:
-                                qa_bank.append({
-                                    "q": clean_text(parts[0].strip()), 
-                                    "a": clean_text(parts[1].strip())
-                                })
+                                qa_bank.append({"q": clean_text(parts[0].strip()), "a": clean_text(parts[1].strip())})
                 
                 if qa_bank:
                     random.shuffle(qa_bank)
                     selected = qa_bank[:25]
                     try:
-                        pdf_data = generate_pdf(Institute_name, student_name, std_choice, sub_choice, chp_choice, selected)
+                        pdf_data = generate_pdf(institute_name, student_name, std_choice, sub_choice, chp_choice, selected)
                         st.success(f"✅ Paper Generated for {student_name}!")
                         st.download_button(
                             label="📥 Download PDF", 
@@ -131,7 +153,5 @@ else:
                         )
                     except Exception as e:
                         st.error(f"Error creating PDF: {e}")
-                else:
-                    st.error("File formatting error in .txt file.")
             else:
                 st.error(f"File not found: {filename}")
