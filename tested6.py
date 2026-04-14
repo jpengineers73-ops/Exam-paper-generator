@@ -89,7 +89,7 @@ else:
 
     st.title("📝 Online Exam Generator")
     
-    school_name = st.text_input("School Name", "Global Public School")
+    Institute_name = st.text_input("Institute Name", "Palash Group Tuition")
     student_name = st.text_input("Student Name", placeholder="Enter student name...")
 
     col1, col2, col3 = st.columns(3)
