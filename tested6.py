@@ -69,7 +69,7 @@ if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
 if not st.session_state.logged_in:
-    st.title("🔐 Staff Portal")
+    st.title("🔐 Exam_Paper_Generator_Portal")
     user = st.text_input("Username")
     passwd = st.text_input("Password", type="password")
     if st.button("Login"):
