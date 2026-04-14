@@ -74,7 +74,7 @@ def generate_pdf(school, student, std, sub, chp, questions):
 st.set_page_config(page_title="Exam Generator Pro", page_icon="📝")
 st.title("📝 Online Exam Generator")
 
-school_name = st.text_input("School Name", "Global Public School")
+Institute_name = st.text_input("Institute Name", "Palash Group Tuition")
 student_name = st.text_input("Student Name", placeholder="Type student name here...")
 
 col1, col2, col3 = st.columns(3)
