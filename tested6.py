@@ -121,7 +121,7 @@ else:
                     random.shuffle(qa_bank)
                     selected = qa_bank[:25]
                     try:
-                        pdf_data = generate_pdf(school_name, student_name, std_choice, sub_choice, chp_choice, selected)
+                        pdf_data = generate_pdf(Institute_name, student_name, std_choice, sub_choice, chp_choice, selected)
                         st.success(f"✅ Paper Generated for {student_name}!")
                         st.download_button(
                             label="📥 Download PDF", 
