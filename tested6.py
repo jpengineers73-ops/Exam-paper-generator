@@ -100,7 +100,7 @@ if not st.session_state.logged_in:
             f'<a href="{upi_url}" style="display: inline-block; padding: 12px 24px; background-color: #2e7d32; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-weight: bold;">🚀 Pay via UPI App</a>',
             unsafe_allow_html=True
         )
-    st.info("After payment, share the screenshot with Admin to get your password.")
+    st.info("After payment, share the screenshot to whatsapp +9825072285 Admin to get your password.")
 
 else:
     # --- MAIN APP ---
