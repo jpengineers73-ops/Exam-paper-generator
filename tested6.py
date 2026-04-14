@@ -62,7 +62,7 @@ def generate_pdf(school, student, std, sub, chp, questions):
         pdf.ln(0.5)
     return pdf.output()
 
-# --- 4. APP INTERFACE & PAYMENT ---
+# --- 4. APP INTERFACE ---
 st.set_page_config(page_title="Exam Generator Pro", page_icon="📝")
 
 if "logged_in" not in st.session_state:
@@ -83,11 +83,10 @@ if not st.session_state.logged_in:
     st.subheader("💳 Get Premium Access")
     
     # --- PAYMENT LOGIC ---
-    upi_id = "9825072285@ptsbi"  # <<< CHANGE THIS TO YOUR UPI ID
+    upi_id = "9825072285@ptsbi"  # CHANGE THIS TO YOUR UPI ID
     biz_name = "Palash Group Tuition"
-    pay_amount = "50"
+    pay_amount = "500"
     
-    # 1. Create QR Code
     upi_url = f"upi://pay?pa={upi_id}&pn={biz_name.replace(' ', '%20')}&am={pay_amount}&cu=INR"
     qr = segno.make(upi_url)
     qr.save("upi_qr.png", scale=10)
@@ -97,24 +96,20 @@ if not st.session_state.logged_in:
         st.image("upi_qr.png", caption="Scan QR to Pay", width=180)
     with col_b:
         st.write(f"**Amount:** ₹{pay_amount}")
-        # 2. Create Pay Button for Mobile Users
         st.markdown(
             f'<a href="{upi_url}" style="display: inline-block; padding: 12px 24px; background-color: #2e7d32; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-weight: bold;">🚀 Pay via UPI App</a>',
             unsafe_allow_html=True
         )
-st.info("After payment, WhatsApp the screenshot to +91 9825072285 to get your login password instantly!")
-    
+    st.info("After payment, share the screenshot with Admin to get your password.")
 
 else:
-    # --- LOGGED IN UI ---
-    st.sidebar.title(f"Welcome!")
+    # --- MAIN APP ---
+    st.sidebar.title("Welcome!")
     if st.sidebar.button("Logout"):
         st.session_state.logged_in = False
         st.rerun()
 
     st.title("📝 Online Exam Generator")
-    
-    # Use the institute name you wanted
     institute_name = st.text_input("Institute Name", "Palash Group Tuition")
     student_name = st.text_input("Student Name", placeholder="Enter student name...")
 
@@ -154,5 +149,7 @@ else:
                         )
                     except Exception as e:
                         st.error(f"Error creating PDF: {e}")
+                else:
+                    st.error("File formatting error in .txt file.")
             else:
                 st.error(f"File not found: {filename}")
