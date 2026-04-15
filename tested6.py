@@ -1,14 +1,44 @@
 import streamlit as st
-from fpdf import FPDF
-import os
-import random
-import segno
+from datetime import datetime
+# ... (rest of your imports stay the same)
 
-# --- 1. USER ACCOUNTS ---
+# --- 1. USER ACCOUNTS WITH EXPIRY ---
+# Format: "username": ["password", "YYYY-MM-DD"]
 USERS = {
-    "admin": "admin123",
-    "joy": "joy73"
+    "admin": ["admin123", "2026-12-31"], 
+    "joy": ["joy73", "2024-05-20"],      # Example: Joy's sub expires soon
+    "teacher1": ["science789", "2024-04-30"] 
 }
+
+def check_subscription(username):
+    expiry_str = USERS[username][1]
+    expiry_date = datetime.strptime(expiry_str, "%Y-%m-%d").date()
+    today = datetime.now().date()
+    
+    days_left = (expiry_date - today).days
+    
+    if days_left < 0:
+        return "EXPIRED", 0
+    return "ACTIVE", days_left
+
+# --- 4. APP INTERFACE ---
+# Inside your "if not st.session_state.logged_in:" block:
+if login_button_clicked: # (Logic from your existing login)
+    if user in USERS and USERS[user][0] == passwd:
+        status, days = check_subscription(user)
+        if status == "EXPIRED":
+            st.error(f"❌ Your subscription expired on {USERS[user][1]}. Please renew below.")
+            # Show your Payment QR code here
+        else:
+            st.session_state.logged_in = True
+            st.session_state.user = user
+            st.rerun()
+
+# Inside your "else:" (Logged in) block, add a reminder at the top:
+status, days = check_subscription(st.session_state.user)
+if days <= 5:
+    st.warning(f"⚠️ Subscription Reminder: Your access expires in {days} days ({USERS[st.session_state.user][1]}).")
+
 
 # --- 2. DATA CONFIGURATION ---
 DATA_TREE = {
