@@ -115,12 +115,14 @@ if not st.session_state.logged_in:
     biz_name = "Palash Group Tuition"
     pay_amount = "500"
     
+    # Generate UPI QR
     upi_url = f"upi://pay?pa={upi_id}&pn={biz_name.replace(' ', '%20')}&am={pay_amount}&cu=INR"
     qr = segno.make(upi_url)
     
     col_a, col_b = st.columns(2)
     with col_a:
-        st.image(qr.to_data_uri(scale=10), caption="Scan QR to Pay", width=180)
+        # FIXED: Use png_data_uri to prevent AttributeError
+        st.image(qr.png_data_uri(scale=10), caption="Scan QR to Pay", width=180)
     with col_b:
         st.write(f"**Amount:** ₹{pay_amount}")
         st.markdown(
