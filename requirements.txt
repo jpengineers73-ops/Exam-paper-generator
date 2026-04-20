@@ -1,3 +1,5 @@
 streamlit
 fpdf2
 segno
+st-gsheets-connection
+pandas
