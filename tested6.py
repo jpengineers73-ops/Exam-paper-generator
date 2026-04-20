@@ -9,7 +9,7 @@ from datetime import datetime
 # Format: "username": ["password", "YYYY-MM-DD"]
 USERS = {
     "admin": ["admin123", "2026-12-31"], 
-    "joy": ["joy73", "2026-04-14"],      
+    "joy": ["joy73", "2026-05-20"],      
     "teacher1": ["science789", "2026-04-30"] 
 }
 
@@ -47,7 +47,7 @@ def generate_pdf(school, student, std, sub, chp, questions):
     # Page 1: Questions
     pdf.add_page()
     pdf.set_font("Helvetica", 'B', 16)
-    pdf.cell(w=0, h=10, text=school.upper(), align='C', new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(w=0, h=10, text=school.upper(), align='C', border=0, new_x="LMARGIN", new_y="NEXT")
     
     pdf.set_font("Helvetica", '', 11)
     pdf.cell(w=95, h=8, text=f"Class: {std} | Subject: {sub}", align='L')
@@ -92,7 +92,7 @@ if "logged_in" not in st.session_state:
 
 if not st.session_state.logged_in:
     # --- LOGIN & PAYMENT SCREEN ---
-    st.title("🔐 Exam Paper Generator of std 6_7_8")
+    st.title("🔐 Staff Portal")
     user_input = st.text_input("Username")
     pass_input = st.text_input("Password", type="password")
     
@@ -111,17 +111,18 @@ if not st.session_state.logged_in:
     st.markdown("---")
     st.subheader("💳 Get / Renew Access")
     
-    upi_id = "9825072285@ptsbi" # CHANGE THIS TO YOUR ACTUAL UPI ID
+    # ⚠️ UPDATE THIS WITH YOUR ACTUAL UPI ID
+    upi_id = "9825072285@ptsbi" 
     biz_name = "Palash Group Tuition"
     pay_amount = "500"
     
-    # Generate UPI QR
+    # Generate UPI QR Link
     upi_url = f"upi://pay?pa={upi_id}&pn={biz_name.replace(' ', '%20')}&am={pay_amount}&cu=INR"
     qr = segno.make(upi_url)
     
     col_a, col_b = st.columns(2)
     with col_a:
-        # FIXED: Use png_data_uri to prevent AttributeError
+        # Compatibility fix: using png_data_uri()
         st.image(qr.png_data_uri(scale=10), caption="Scan QR to Pay", width=180)
     with col_b:
         st.write(f"**Amount:** ₹{pay_amount}")
@@ -129,7 +130,7 @@ if not st.session_state.logged_in:
             f'<a href="{upi_url}" style="display: inline-block; padding: 12px 24px; background-color: #2e7d32; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-weight: bold;">🚀 Pay via UPI App</a>',
             unsafe_allow_html=True
         )
-    st.info("WhatsApp 9825072285 send screenshot to Admin after payment to get your password.")
+    st.info("WhatsApp screenshot to Admin after payment to get your password.")
 
 else:
     # --- MAIN APP (LOGGED IN) ---
@@ -166,7 +167,10 @@ else:
                         if "|" in line:
                             parts = line.split("|")
                             if len(parts) >= 2:
-                                qa_bank.append({"q": clean_text(parts[0].strip()), "a": clean_text(parts[1].strip())})
+                                qa_bank.append({
+                                    "q": clean_text(parts[0].strip()), 
+                                    "a": clean_text(parts[1].strip())
+                                })
                 
                 if qa_bank:
                     random.shuffle(qa_bank)
