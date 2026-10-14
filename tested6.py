@@ -9,7 +9,7 @@ from datetime import datetime
 # Format: "username": ["password", "YYYY-MM-DD"]
 USERS = {
     "admin": ["admin1234", "2026-12-31"], 
-    "joy": ["joy73", "2026-05-20"]
+    "joy": ["joy73", "2026-12-20"]
 }
 
 # --- 2. DATA & UTILS ---
