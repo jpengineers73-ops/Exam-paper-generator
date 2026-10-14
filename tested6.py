@@ -8,7 +8,7 @@ from datetime import datetime
 # --- 1. USER ACCOUNTS ---
 # Format: "username": ["password", "YYYY-MM-DD"]
 USERS = {
-    "admin": ["admin123", "2026-12-31"], 
+    "admin": ["admin1234", "2026-12-31"], 
     "joy": ["joy73", "2026-05-20"]
 }
 
